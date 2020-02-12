@@ -54,7 +54,10 @@ final class HttpFactory implements RequestFactoryInterface, ResponseFactoryInter
      */
     public function createRequest(string $method, $uri): RequestInterface
     {
-        return $this->request_factory->createRequest($method, $uri);
+        return new Request(
+            $this->request_factory->createRequest($method, $uri),
+            [$this->backtrace_flag, $this->backtrace_number],
+        );
     }
 
     /**
@@ -69,7 +72,10 @@ final class HttpFactory implements RequestFactoryInterface, ResponseFactoryInter
      */
     public function createResponse(int $code = 200, string $reasonPhrase = ''): ResponseInterface
     {
-        return $this->response_factory->createResponse($code, $reasonPhrase);
+        return new Response(
+            $this->response_factory->createResponse($code, $reasonPhrase),
+            [$this->backtrace_flag, $this->backtrace_number],
+        );
     }
 
 
@@ -91,6 +97,9 @@ final class HttpFactory implements RequestFactoryInterface, ResponseFactoryInter
      */
     public function createServerRequest(string $method, $uri, array $serverParams = []): ServerRequestInterface
     {
-        return $this->server_request_factory->createServerRequest($method, $uri, $serverParams);
+        return new ServerRequest(
+            $this->server_request_factory->createServerRequest($method, $uri, $serverParams),
+            [$this->backtrace_flag, $this->backtrace_number],
+        );
     }
 }
