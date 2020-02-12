@@ -6,6 +6,10 @@ use Psr\Http\Message\{RequestFactoryInterface, RequestInterface, ResponseFactory
 
 final class HttpFactory implements RequestFactoryInterface, ResponseFactoryInterface
 {
+    /** @var int */
+    private $backtrace_flag;
+    /** @var int */
+    private $backtrace_number;
     /** @var RequestFactoryInterface */
     private $request_factory;
     /** @var ResponseFactoryInterface */
@@ -13,11 +17,17 @@ final class HttpFactory implements RequestFactoryInterface, ResponseFactoryInter
     /** @var ServerRequestFactoryInterface */
     private $server_request_factory;
 
+    /**
+     * @param array{flag?:int,number?:int} $backtrace_params
+     */
     public function __construct(
         RequestFactoryInterface $request_factory,
         ResponseFactoryInterface $response_factory,
-        ServerRequestFactoryInterface $server_request_factory
+        ServerRequestFactoryInterface $server_request_factory,
+        array $backtrace_params = []
     ) {
+        $this->backtrace_flag = $backtrace_params['flag'] ?? 0;
+        $this->backtrace_number = $backtrace_params['number'] ?? 1;
         $this->request_factory = $request_factory;
         $this->response_factory = $response_factory;
         $this->server_request_factory = $server_request_factory;
@@ -25,10 +35,11 @@ final class HttpFactory implements RequestFactoryInterface, ResponseFactoryInter
 
     /**
      * @param RequestFactoryInterface&ResponseFactoryInterface&ServerRequestFactoryInterface $http_factory
+     * @param array{flag?:int,number?:int} $backtrace_params
      */
-    public static function fromHttpFactories (ServerRequestFactoryInterface $http_factory): self
+    public static function fromHttpFactories (ServerRequestFactoryInterface $http_factory, array $backtrace_params = []): self
     {
-        return new self($http_factory, $http_factory, $http_factory);
+        return new self($http_factory, $http_factory, $http_factory, $backtrace_params);
     }
 
     /**
