@@ -3,7 +3,6 @@
 namespace Bag2\HttpTest;
 
 use Psr\Http\Message\ResponseInterface;
-use Psr\Http\Message\UriInterface;
 
 class Response extends Message implements ResponseInterface
 {

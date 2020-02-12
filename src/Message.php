@@ -3,7 +3,6 @@
 namespace Bag2\HttpTest;
 
 use Psr\Http\Message\MessageInterface;
-use Psr\Http\Message\UriInterface;
 use Psr\Http\Message\StreamInterface;
 
 abstract class Message implements MessageInterface
