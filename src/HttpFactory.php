@@ -34,8 +34,9 @@ final class HttpFactory implements RequestFactoryInterface, ResponseFactoryInter
     }
 
     /**
-     * @param RequestFactoryInterface&ResponseFactoryInterface&ServerRequestFactoryInterface $http_factory
+     * @phpstan-param RequestFactoryInterface&ResponseFactoryInterface&ServerRequestFactoryInterface $http_factory
      * @param array{flag?:int,number?:int} $backtrace_params
+     * @phan-suppress PhanTypeMismatchArgument
      */
     public static function fromHttpFactories (ServerRequestFactoryInterface $http_factory, array $backtrace_params = []): self
     {
