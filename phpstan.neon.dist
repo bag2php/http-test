@@ -5,3 +5,4 @@ parameters:
     - tests/
   autoload_files:
     - vendor/autoload.php
+  checkMissingIterableValueType: false
