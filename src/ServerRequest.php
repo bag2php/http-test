@@ -62,8 +62,8 @@ class ServerRequest extends Request implements ServerRequestInterface
     {
         return new static(
             $this->message()->withCookieParams($cookies),
-            $this->debug_backtrace_flag,
-            debug_backtrace($this->debug_backtrace_flag)[0]
+            $this->backtrace_params,
+            debug_backtrace($this->backtrace_params[0], $this->backtrace_params[1])
         );
     }
 
@@ -110,8 +110,8 @@ class ServerRequest extends Request implements ServerRequestInterface
     {
         return new static(
             $this->message()->withQueryParams($query),
-            $this->debug_backtrace_flag,
-            debug_backtrace($this->debug_backtrace_flag)[0]
+            $this->backtrace_params,
+            debug_backtrace($this->backtrace_params[0], $this->backtrace_params[1])
         );
     }
 
@@ -147,8 +147,8 @@ class ServerRequest extends Request implements ServerRequestInterface
     {
         return new static(
             $this->message()->withUploadedFiles($uploadedFiles),
-            $this->debug_backtrace_flag,
-            debug_backtrace($this->debug_backtrace_flag)[0]
+            $this->backtrace_params,
+            debug_backtrace($this->backtrace_params[0], $this->backtrace_params[1])
         );
     }
 
@@ -204,8 +204,8 @@ class ServerRequest extends Request implements ServerRequestInterface
     {
         return new static(
             $this->message()->withParsedBody($data),
-            $this->debug_backtrace_flag,
-            debug_backtrace($this->debug_backtrace_flag)[0]
+            $this->backtrace_params,
+            debug_backtrace($this->backtrace_params[0], $this->backtrace_params[1])
         );
     }
 
@@ -264,8 +264,8 @@ class ServerRequest extends Request implements ServerRequestInterface
     {
         return new static(
             $this->message()->withAttribute($name, $value),
-            $this->debug_backtrace_flag,
-            debug_backtrace($this->debug_backtrace_flag)[0]
+            $this->backtrace_params,
+            debug_backtrace($this->backtrace_params[0], $this->backtrace_params[1])
         );
     }
 
@@ -287,8 +287,8 @@ class ServerRequest extends Request implements ServerRequestInterface
     {
         return new static(
             $this->message()->withoutAttribute($name),
-            $this->debug_backtrace_flag,
-            debug_backtrace($this->debug_backtrace_flag)[0]
+            $this->backtrace_params,
+            debug_backtrace($this->backtrace_params[0], $this->backtrace_params[1])
         );
     }
 }

@@ -14,19 +14,22 @@ abstract class Message implements MessageInterface
     protected $stack = [];
     /** @var ?array */
     protected $backtrace;
-    /** @var int */
-    protected $debug_backtrace_flag;
+    /** @var array{0:int,1:int} */
+    protected $backtrace_params;
 
+    /**
+     * @param array{0:int,1:int} $backtrace_params
+     */
     final public function __construct(
         MessageInterface $message,
-        int $debug_backtrace_flag,
+        array  $backtrace_params,
         array $backtrace = null
     ) {
         if ($message instanceof self) {
             $this->message = $message->message;
             $this->stack = $message->stack;
             $this->stack[] = $this;
-            $this->debug_backtrace_flag = $debug_backtrace_flag;
+            $this->backtrace_params = $backtrace_params;
         } else {
             $this->message = $message;
         }
@@ -65,8 +68,8 @@ abstract class Message implements MessageInterface
     {
         return new static(
             $this->message->withProtocolVersion($version),
-            $this->debug_backtrace_flag,
-            debug_backtrace($this->debug_backtrace_flag)[0]
+            $this->backtrace_params,
+            debug_backtrace($this->backtrace_params[0], $this->backtrace_params[1])
         );
     }
 
@@ -175,8 +178,8 @@ abstract class Message implements MessageInterface
     {
         return new static(
             $this->message->withHeader($name, $value),
-            $this->debug_backtrace_flag,
-            debug_backtrace($this->debug_backtrace_flag)[0]
+            $this->backtrace_params,
+            debug_backtrace($this->backtrace_params[0], $this->backtrace_params[1])
         );
     }
 
@@ -200,8 +203,8 @@ abstract class Message implements MessageInterface
     {
         return new static(
             $this->message->withAddedHeader($name, $value),
-            $this->debug_backtrace_flag,
-            debug_backtrace($this->debug_backtrace_flag)[0]
+            $this->backtrace_params,
+            debug_backtrace($this->backtrace_params[0], $this->backtrace_params[1])
         );
     }
 
@@ -221,8 +224,8 @@ abstract class Message implements MessageInterface
     {
         return new static(
             $this->message->withoutHeader($name),
-            $this->debug_backtrace_flag,
-            debug_backtrace($this->debug_backtrace_flag)[0]
+            $this->backtrace_params,
+            debug_backtrace($this->backtrace_params[0], $this->backtrace_params[1])
         );
     }
 
@@ -253,8 +256,8 @@ abstract class Message implements MessageInterface
     {
         return new static(
             $this->message->withBody($body),
-            $this->debug_backtrace_flag,
-            debug_backtrace($this->debug_backtrace_flag)[0]
+            $this->backtrace_params,
+            debug_backtrace($this->backtrace_params[0], $this->backtrace_params[1])
         );
     }
 }

@@ -54,8 +54,8 @@ class Request extends Message implements RequestInterface
     {
         return new static(
             $this->message()->withRequestTarget($requestTarget),
-            $this->debug_backtrace_flag,
-            debug_backtrace($this->debug_backtrace_flag)[0]
+            $this->backtrace_params,
+            debug_backtrace($this->backtrace_params[0], $this->backtrace_params[1])
         );
     }
 
@@ -88,8 +88,8 @@ class Request extends Message implements RequestInterface
     {
         return new static(
             $this->message()->withMethod($method),
-            $this->debug_backtrace_flag,
-            debug_backtrace($this->debug_backtrace_flag)[0]
+            $this->backtrace_params,
+            debug_backtrace($this->backtrace_params[0], $this->backtrace_params[1])
         );
     }
 
@@ -141,8 +141,8 @@ class Request extends Message implements RequestInterface
     {
         return new static(
             $this->message()->withUri($uri, $preserveHost),
-            $this->debug_backtrace_flag,
-            debug_backtrace($this->debug_backtrace_flag)[0]
+            $this->backtrace_params,
+            debug_backtrace($this->backtrace_params[0], $this->backtrace_params[1])
         );
     }
 }

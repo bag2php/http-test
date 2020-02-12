@@ -49,8 +49,8 @@ class Response extends Message implements ResponseInterface
     {
         return new static(
             $this->message()->withStatus($code, $reasonPhrase),
-            $this->debug_backtrace_flag,
-            debug_backtrace($this->debug_backtrace_flag)[0]
+            $this->backtrace_params,
+            debug_backtrace($this->backtrace_params[0], $this->backtrace_params[1])
         );
     }
 
